@@ -12,6 +12,13 @@ max-width: 100%;
 border-radius: 50%
     }
 
+.pro{
+width : 80px;
+height: 45px;
+border-radius: 50%;
+
+}
+
 </style>
 <html lang="en">
   <head>
@@ -69,13 +76,17 @@ border-radius: 50%
           <form class="d-flex">
               {% if request.user.is_superuser %}
               <button type="button" class="btn btn-danger" onclick="window.open('http://127.0.0.1:8000/logout', '_self')">Logout</button>
-               <img src="{% static 'avatar.jpg' %}" alt="Avatar" class="avatar">
+              &nbsp;&nbsp;&nbsp;
+              <a href="http://127.0.0.1:8000/admin"><img src="{% static 'avatar.jpg' %}" alt="Avatar" class="pro"></a>
+              &nbsp;&nbsp;&nbsp;
             {% elif user.is_authenticated %}
             <button type="button" class="btn btn-danger" onclick="window.open('http://127.0.0.1:8000/logout', '_self')">Logout</button>
-           <a href="{% url 'uinfo' pid=user.person.id %}"><img src="{% static 'avatar.jpg' %}" alt="Avatar" class="avatar"></a>
+              &nbsp;&nbsp;&nbsp;
+           <a href="{% url 'uinfo' pid=user.person.id %}"><img src="{% static 'avatar.jpg' %}" alt="Avatar" class="pro"></a>
+              &nbsp;&nbsp;&nbsp;
             {% else %}
-            <button type="button" class="btn btn-secondary" onclick="window.open('http://127.0.0.1:8000/admin')">Admin</button>
             <button type="button" class="btn btn-success" onclick="window.open('http://127.0.0.1:8000/login','_self')">Login</button>
+              &nbsp;&nbsp;&nbsp;
             <a href="http://127.0.0.1:8000/signup" class="btn btn-danger"> SignUP </a>
             {% endif %}
 
