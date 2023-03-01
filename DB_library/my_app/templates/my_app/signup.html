@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% extends "my_app/home.html" %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+{% block content %}
+<body>
+<form action="{% url 'signup'  %}" method="post">
+        {% csrf_token %}
+       {{ userform.as_p }}
+       {{ person_form.as_p }}
+    <input type="submit" value="send" >
+  </form>
+</body>
+{% endblock content %}
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "my_app/home.html" %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Games List</title>
+</head>
+<body>
+{% block content %}
+{% if games %}
+
+  <div style=" display: flex;
+  flex-wrap: wrap; max-width :85%; ">
+  {% for game in games %}
+    <div class="card" style="width: 250px; background-color : grey; ">
+        {% if game.game_img %}
+      <img src="{{game.game_img.url}}" class="card-img-top" alt="..." style="height: 225px;">
+        {% endif %}
+      <div class="card-body">
+        <h5 class="card-title" style="text-align:center;" >{{game.game_name}}</h5>
+      </div>
+      <ul class="list-group list-group-flush" style="text-align:center; ">
+        <li class="list-group-item">PS: {{game.console_number}}</li>
+        <li class="list-group-item">Price: {{game.price}} $</li>
+      </ul>
+      <div class="card-body">
+        <a href="{% url 'ginfo' gid=game.id %}" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
+      </div>
+    </div> &nbsp;&nbsp;
+  {% endfor %}
+  {% endif %}
+  </div >
+
+
+
+<!--{% if games %}-->
+<!--{% for game in games %}-->
+<!--<div class="card">-->
+<!--  <div class="card-header">-->
+<!--    {{game.game_name}}-->
+<!--  </div>-->
+<!--    <div class="card-body">-->
+<!--      <h5 class="card-title">{{game.game_name}}</h5>-->
+<!--      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
+<!--      <div class="card" style="width: 150px; background-color : grey;">-->
+<!--        {% if game.game_img %}-->
+<!--      <img src="{{game.game_img.url}}" class="card-img-top" alt="...">-->
+<!--        {% endif %}-->
+<!--        <a href="#" class="btn btn-primary">Go somewhere</a>-->
+<!--      <div class="card-body">-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+<!--    {% endfor %}-->
+<!--    {% endif %}-->
+</body>
+{% endblock content %}
+</html>

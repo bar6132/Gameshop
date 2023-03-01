@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% extends "my_app/home.html" %}
+{% load static %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game info</title>
+</head>
+<body>
+<form action="{% url 'ginfo' gid=gid %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+       {{ form.as_p }}
+    <input name="rid" type="hidden" value= {{rid}}/>
+    <input type="submit" value="send" onclick="return confirm('Are you sure data is ok ?')">
+  </form>
+</body>
+{% endblock content %}
+</html>

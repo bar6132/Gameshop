@@ -1,0 +1,17 @@
+
+body{
+  width: 100%;
+  height: auto;
+}
+html { overflow-y: scroll; }
+button {
+height: 45px;
+}
+.avatar {
+  vertical-align: middle;
+  width: 50px;
+  height: 45px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
