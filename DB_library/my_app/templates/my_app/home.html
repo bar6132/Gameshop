@@ -12,8 +12,6 @@ max-width: 100%;
 border-radius: 50%
     }
 
-
-
 </style>
 <html lang="en">
   <head>
@@ -69,15 +67,18 @@ border-radius: 50%
           <input class="form-control me-2" type="search" placeholder="Search games" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
           <form class="d-flex">
-            {% if user.is_authenticated %}
+              {% if request.user.is_superuser %}
+              <button type="button" class="btn btn-danger" onclick="window.open('http://127.0.0.1:8000/logout', '_self')">Logout</button>
+               <img src="{% static 'avatar.jpg' %}" alt="Avatar" class="avatar">
+            {% elif user.is_authenticated %}
             <button type="button" class="btn btn-danger" onclick="window.open('http://127.0.0.1:8000/logout', '_self')">Logout</button>
-            <img src="{% static 'avatar.jpg' %}" alt="Avatar" class="avatar">
-
+           <a href="{% url 'uinfo' pid=user.person.id %}"><img src="{% static 'avatar.jpg' %}" alt="Avatar" class="avatar"></a>
             {% else %}
             <button type="button" class="btn btn-secondary" onclick="window.open('http://127.0.0.1:8000/admin')">Admin</button>
             <button type="button" class="btn btn-success" onclick="window.open('http://127.0.0.1:8000/login','_self')">Login</button>
             <a href="http://127.0.0.1:8000/signup" class="btn btn-danger"> SignUP </a>
             {% endif %}
+
           </form>
         </form>
       </span>
@@ -118,7 +119,6 @@ border-radius: 50%
           </button>
         </div>
       </div>
-    vfjnjo
     {% endblock content %}
   </body>
 </html>

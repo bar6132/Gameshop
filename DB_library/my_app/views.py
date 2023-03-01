@@ -111,5 +111,9 @@ def create_user(req):
                           context={'form': userform})
 
 
-
-
+def show_user_info(req, pid):
+    person = Person.objects.get(pk=pid)
+    if req.method == "GET":
+        form = PersonForm(instance=person)
+        return render(request=req, template_name="my_app/show_user_info.html",
+                      context={'form': form, 'pid': pid})

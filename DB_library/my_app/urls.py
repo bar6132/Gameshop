@@ -15,4 +15,5 @@ urlpatterns = [
    path('gup', views.add_game, name="gup"),
    path('signup', views.create_user, name='signup'),
    path("ginfo/<str:gid>", views.show_game_info, name="ginfo"),
+   path("uinfo/<str:pid>", views.show_user_info, name="uinfo"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
