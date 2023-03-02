@@ -10,6 +10,7 @@
 {% block content %}
 <form action="{% url 'uinfo' pid=user.person.id %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
+    <p> User: {{ name }}</p>
        {{ form.as_p }}
     <input name="pid" type="hidden" value= {{pid}}/>
     <input type="submit" value="send" onclick="return confirm('Are you sure data is ok ?')">

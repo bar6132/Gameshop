@@ -28,3 +28,12 @@ class PersonForm(ModelForm):
         model = Person
         exclude = ['user']
         fields = '__all__'
+
+
+class EPersonForm(ModelForm):
+    id = forms.CharField(disabled=True)
+
+    class Meta:
+        model = Person
+        exclude = ['user']
+        fields = '__all__'

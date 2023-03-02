@@ -9,7 +9,7 @@ import datetime, time
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from .forms import LoginForm, PsForm, UserForm, PersonForm
+from .forms import LoginForm, PsForm, UserForm, PersonForm, EPersonForm
 from .models import Person, Playstation
 from django.contrib.auth.decorators import user_passes_test
 from django.conf import settings
@@ -114,7 +114,17 @@ def create_user(req):
 
 def show_user_info(req, pid):
     person = Person.objects.get(pk=pid)
+    user = User.objects.get(username=req.user.username)
     if req.method == "GET":
-        form = PersonForm(instance=person)
+        form = EPersonForm(instance=person)
         return render(request=req, template_name="my_app/show_user_info.html",
-                      context={'form': form, 'pid': pid})
+                      context={'form': form, 'pid': pid,
+                               'name': user})
+
+    elif req.method == 'POST':
+        form = EPersonForm(req.POST, instance=person)
+        if form.is_valid():
+            form.save()
+            return redirect("home")
+        else:
+            return redirect('login')
