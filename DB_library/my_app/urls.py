@@ -15,6 +15,7 @@ urlpatterns = [
    # path("edit/user", views.edit_user, name='edit/user'),
    path("del/user<str:pid>", views.del_user, name='del/user'),
    path('gup', views.add_game, name="gup"),
+   path('adx', views.add_xbox_game, name="adx"),
    path('signup', views.create_user, name='signup'),
    path("ginfo/<str:gid>", views.show_game_info, name="ginfo"),
    path("uinfo/<str:pid>", views.show_user_info, name="uinfo"),

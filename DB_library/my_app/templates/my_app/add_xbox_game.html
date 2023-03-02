@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% extends "my_app/home.html" %}
+{% load static %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Xbox Game</title>
+</head>
+<body>
+<form action="{% url 'adx' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="add">
+</form>
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-danger" role="alert">
+    {{ message }}
+  </div>
+  {% endfor %}
+{% endif %}
+</body>
+{% endblock content %}
+</html>
