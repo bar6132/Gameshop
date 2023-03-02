@@ -11,9 +11,22 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm, PsForm, UserForm, PersonForm, EPersonForm
-from .models import Person, Playstation, Nintendo
+from .models import Person, Playstation, Nintendo, Xbox, Pc, OldSchool
 from django.contrib.auth.decorators import user_passes_test
 from django.conf import settings
+from itertools import chain
+
+
+def serve_all_games(req):
+    msg = 'NO Games Have Been Found'
+    findp = Playstation.objects.all()
+    findx = Xbox.objects.all()
+    findn = Nintendo.objects.all()
+    findpc = Pc.objects.all()
+    findo = OldSchool.objects.all()
+    find = list(chain(findx, findp, findn, findo, findpc))
+    return render(request=req, template_name="my_app/full-game-list.html", context={'games': find,
+                                                                                'msg': msg})
 
 
 def home(req):

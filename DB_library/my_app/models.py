@@ -51,3 +51,25 @@ class Nintendo(models.Model):
 
     def __str__(self):
         return f"{self.game_name}"
+
+
+class Xbox(models.Model):
+    console_name = models.CharField(null=False, max_length=50)
+    game_name = models.CharField(null=False, max_length=50)
+    price = models.PositiveIntegerField(null=False)
+    game_img = models.ImageField(null=True, blank=True, upload_to="images/")
+
+
+class Pc(models.Model):
+    game_name = models.CharField(null=False, max_length=50)
+    price = models.PositiveIntegerField(null=False)
+    game_img = models.ImageField(null=True, blank=True, upload_to="images/")
+    pc_minimum_requirements = models.CharField(null=True, blank=True, max_length=100)
+
+
+class OldSchool(models.Model):
+    console_number = models.PositiveIntegerField(null=True, blank=True)
+    console_name = models.CharField(null=False, max_length=50)
+    game_name = models.CharField(null=False, max_length=50)
+    price = models.PositiveIntegerField(null=False)
+    game_img = models.ImageField(null=True, blank=True, upload_to="images/")
