@@ -55,7 +55,9 @@ border-radius: 50%;
             Link
           </a>
           <ul class="dropdown-menu">
+              {% if perms.my_app.delete_person or request.user.is_superuser %}
             <li><a class="dropdown-item" href="http://127.0.0.1:8000/ulist">User List</a></li>
+              {% endif %}
             <li><a class="dropdown-item" href="http://127.0.0.1:8000/gup">Add Game For Sale</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
@@ -78,12 +80,13 @@ border-radius: 50%;
               <button type="button" class="btn btn-danger" onclick="window.open('http://127.0.0.1:8000/logout', '_self')">Logout</button>
               &nbsp;&nbsp;&nbsp;
               <a href="http://127.0.0.1:8000/admin"><img src="{% static 'avatar.jpg' %}" alt="Avatar" class="pro"></a>
-              &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;<p style="padding-top: 8px;">{{ name }}</p>&nbsp;&nbsp;&nbsp;
             {% elif user.is_authenticated %}
+
             <button type="button" class="btn btn-danger" onclick="window.open('http://127.0.0.1:8000/logout', '_self')">Logout</button>
-              &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;
            <a href="{% url 'uinfo' pid=user.person.id %}"><img src="{% static 'avatar.jpg' %}" alt="Avatar" class="pro"></a>
-              &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;<p style="padding-top: 8px;">{{ name }}</p>&nbsp;&nbsp;&nbsp;
             {% else %}
             <button type="button" class="btn btn-success" onclick="window.open('http://127.0.0.1:8000/login','_self')">Login</button>
               &nbsp;&nbsp;&nbsp;

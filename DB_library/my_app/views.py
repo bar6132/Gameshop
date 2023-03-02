@@ -16,7 +16,12 @@ from django.conf import settings
 
 
 def home(req):
-    return render(request=req, template_name="my_app/home.html")
+    if req.user.is_authenticated:
+        user = User.objects.get(username=req.user.username)
+        return render(request=req, template_name="my_app/home.html"
+                      , context={'name': user})
+    else:
+        return render(request=req, template_name="my_app/home.html")
 
 
 def serve_games(req):
@@ -33,6 +38,13 @@ def show_game_info(req, gid):
         return render(request=req, template_name="my_app/show_game_info.html",
                       context={'form': form, 'gid': gid})
 
+    elif req.method == 'POST':
+        form = PsForm(req.POST, req.FILES, instance=game)
+        if form.is_valid():
+            form.save()
+            return redirect("home")
+        else:
+            return redirect('login')
 
 def logout_user(req):
     if req.user.is_authenticated:
