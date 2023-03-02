@@ -5,12 +5,13 @@ from django.views import View
 from django.views.decorators.http import require_http_methods
 from django.views.generic import CreateView, ListView, UpdateView
 from django.contrib.auth.decorators import login_required, permission_required
-import datetime, time
+import datetime
+import time
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm, PsForm, UserForm, PersonForm, EPersonForm
-from .models import Person, Playstation
+from .models import Person, Playstation, Nintendo
 from django.contrib.auth.decorators import user_passes_test
 from django.conf import settings
 
@@ -18,17 +19,23 @@ from django.conf import settings
 def home(req):
     if req.user.is_authenticated:
         user = User.objects.get(username=req.user.username)
-        return render(request=req, template_name="my_app/home.html"
-                      , context={'name': user})
+        return render(request=req, template_name="my_app/home.html", context={'name': user})
     else:
         return render(request=req, template_name="my_app/home.html")
 
 
-def serve_games(req):
+def serve_ps_games(req):
     msg = 'NO Games Have Been Found'
     find = Playstation.objects.all()
-    return render(request=req, template_name="my_app/Games-list.html", context={'games': find,
-                                                                                'msg': msg})
+    return render(request=req, template_name="my_app/ps-Games-list.html", context={'games': find,
+                                                                                   'msg': msg})
+
+
+def serve_nit_games(req):
+    msg = 'NO Games Have Been Found'
+    find = Nintendo.objects.all()
+    return render(request=req, template_name="my_app/nit-Game-list.html", context={'games': find,
+                                                                                   'msg': msg})
 
 
 def show_game_info(req, gid):
@@ -45,6 +52,7 @@ def show_game_info(req, gid):
             return redirect("home")
         else:
             return redirect('login')
+
 
 def logout_user(req):
     if req.user.is_authenticated:

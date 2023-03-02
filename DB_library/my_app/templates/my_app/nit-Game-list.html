@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "my_app/home.html" %}
+{%load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Games List</title>
+</head>
+<body>
+{% block content %}
+{% if games %}
+
+  <div style=" display: flex;
+  flex-wrap: wrap; max-width :85%; ">
+  {% for game in games %}
+    <div class="card" style="width: 250px; background-color : grey; ">
+        {% if game.game_img %}
+      <img src="{{game.game_img.url}}" class="card-img-top" alt="..." style="height: 225px;">
+        {% else %}
+      <img src="{% static 'istockphoto-1357365823-612x612.jpg' %}" class="card-img-top" alt="..." style="height: 225px;">
+        {% endif %}
+      <div class="card-body">
+        <h5 class="card-title" style="text-align:center;" >{{game.game_name}}</h5>
+      </div>
+      <ul class="list-group list-group-flush" style="text-align:center; ">
+        <li class="list-group-item">PS: {{game}}</li>
+        <li class="list-group-item">Price: {{game.price}} $</li>
+      </ul>
+      <div class="card-body">
+        <a href="{% url 'ginfo' gid=game.id %}" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
+      </div>
+    </div> &nbsp;&nbsp;
+  {% endfor %}
+  {% endif %}
+  </div >
+
+</body>
+{% endblock content %}
+</html>

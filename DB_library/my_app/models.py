@@ -18,7 +18,7 @@ class Person(models.Model):
         db_table = "Person"
 
     def __str__(self):
-        return f"{self.user}\n"\
+        return f"{self.user}\n" \
                f"{self.id}\n" \
                f"{self.phone}" \
 
@@ -26,17 +26,28 @@ class Person(models.Model):
 
 class Playstation(models.Model):
     console_number = models.PositiveIntegerField(validators=[
-            MaxValueValidator(5),
-            MinValueValidator(1)
-        ]
-     )
+        MaxValueValidator(5),
+        MinValueValidator(1)
+    ]
+    )
     game_name = models.CharField(null=False, max_length=50)
     price = models.PositiveIntegerField(null=False)
     game_img = models.ImageField(null=True, blank=True, upload_to="images/")
+
+    class Meta:
+        db_table = "Playstation"
+
+    def __str__(self):
+        return f"{self.game_name}"
 
 
 class Nintendo(models.Model):
     game_name = models.CharField(null=False, max_length=50)
     price = models.PositiveIntegerField(null=False)
+    game_img = models.ImageField(null=True, blank=True, upload_to="images/")
 
+    class Meta:
+        db_table = "Nintendo"
 
+    def __str__(self):
+        return f"{self.game_name}"
