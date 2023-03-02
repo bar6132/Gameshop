@@ -40,7 +40,8 @@ def logout_user(req):
     return redirect('login')
 
 
-@user_passes_test(lambda u: u.is_superuser)
+# @user_passes_test(lambda u: u.is_superuser)
+@permission_required('my_app.delete_person')
 def user_list(req):
     if user_passes_test:
         msg = 'NO User Have Been Found'
