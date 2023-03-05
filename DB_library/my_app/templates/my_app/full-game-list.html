@@ -23,7 +23,19 @@
         <h5 class="card-title" style="text-align:center;" >{{game.game_name}}</h5>
       </div>
       <ul class="list-group list-group-flush" style="text-align:center; ">
+<<<<<<< HEAD
         <li class="list-group-item">Nintendo Switch</li>
+=======
+        {% if game.console_name %}
+        <li class="list-group-item">Console: {{ game.console_name }} </li>
+        {% elif game.console_number %}
+        <li class="list-group-item">PS {{game.console_number}} </li>
+        {% elif game.pc_minimum_requirements %}
+        <li class="list-group-item">PC </li>
+        {% else %}
+        <li class="list-group-item"> Nintendo </li>
+        {% endif %}
+>>>>>>> 78b8dc7a9df613b7684c3659985a1dfedba24bbb
         <li class="list-group-item">Price: {{game.price}} $</li>
       </ul>
       <div class="card-body">

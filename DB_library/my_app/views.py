@@ -10,7 +10,11 @@ import time
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+<<<<<<< HEAD
 from .forms import LoginForm, PsForm, UserForm, PersonForm, EPersonForm
+=======
+from .forms import LoginForm, PsForm, UserForm, PersonForm, EPersonForm, XboxForm, NintendoForm, OldSchoolForm, PcForm
+>>>>>>> 78b8dc7a9df613b7684c3659985a1dfedba24bbb
 from .models import Person, Playstation, Nintendo, Xbox, Pc, OldSchool
 from django.contrib.auth.decorators import user_passes_test
 from django.conf import settings
@@ -26,7 +30,11 @@ def serve_all_games(req):
     findo = OldSchool.objects.all()
     find = list(chain(findx, findp, findn, findo, findpc))
     return render(request=req, template_name="my_app/full-game-list.html", context={'games': find,
+<<<<<<< HEAD
                                                                                     'msg': msg})
+=======
+                                                                                'msg': msg})
+>>>>>>> 78b8dc7a9df613b7684c3659985a1dfedba24bbb
 
 
 def home(req):
@@ -123,6 +131,22 @@ def add_game(req):
             messages.error(req, f' error uploading -> Game <- !')
             return render(request=req, template_name="my_app/gameupload.html",
                           context={"form": PsForm()})
+
+
+@login_required
+def add_xbox_game(req):
+    if req.method == 'GET':
+        return render(request=req, template_name="my_app/add_xbox_game.html",
+                      context={"form": XboxForm()})
+    elif req.method == 'POST':
+        form = XboxForm(req.POST, req.FILES)
+        if form.is_valid():
+            form.save()
+            return render(request=req, template_name="my_app/home.html")
+        else:
+            messages.error(req, f' error uploading -> Game <- !')
+            return render(request=req, template_name="my_app/add_xbox_game.html",
+                          context={"form": XboxForm()})
 
 
 def create_user(req):
