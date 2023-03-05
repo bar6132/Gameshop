@@ -26,7 +26,7 @@ def serve_all_games(req):
     findo = OldSchool.objects.all()
     find = list(chain(findx, findp, findn, findo, findpc))
     return render(request=req, template_name="my_app/full-game-list.html", context={'games': find,
-                                                                                'msg': msg})
+                                                                                    'msg': msg})
 
 
 def home(req):
