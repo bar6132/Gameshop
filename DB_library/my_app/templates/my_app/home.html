@@ -58,7 +58,7 @@ border-radius: 50%;
               {% if perms.my_app.delete_person or request.user.is_superuser %}
             <li><a class="dropdown-item" href="http://127.0.0.1:8000/ulist">User List</a></li>
               {% endif %}
-            <li><a class="dropdown-item" href="http://127.0.0.1:8000/gup">Add Game For Sale</a></li>
+            <li><a class="dropdown-item" href="{% url 'menu' %}">Add Game For Sale</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="http://127.0.0.1:8000/adx">Something else here</a></li>
           </ul>

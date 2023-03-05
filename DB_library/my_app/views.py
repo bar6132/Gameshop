@@ -10,11 +10,9 @@ import time
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-<<<<<<< HEAD
+
 from .forms import LoginForm, PsForm, UserForm, PersonForm, EPersonForm
-=======
 from .forms import LoginForm, PsForm, UserForm, PersonForm, EPersonForm, XboxForm, NintendoForm, OldSchoolForm, PcForm
->>>>>>> 78b8dc7a9df613b7684c3659985a1dfedba24bbb
 from .models import Person, Playstation, Nintendo, Xbox, Pc, OldSchool
 from django.contrib.auth.decorators import user_passes_test
 from django.conf import settings
@@ -30,11 +28,8 @@ def serve_all_games(req):
     findo = OldSchool.objects.all()
     find = list(chain(findx, findp, findn, findo, findpc))
     return render(request=req, template_name="my_app/full-game-list.html", context={'games': find,
-<<<<<<< HEAD
                                                                                     'msg': msg})
-=======
-                                                                                'msg': msg})
->>>>>>> 78b8dc7a9df613b7684c3659985a1dfedba24bbb
+
 
 
 def home(req):
@@ -185,3 +180,7 @@ def show_user_info(req, pid):
             return redirect("home")
         else:
             return redirect('login')
+
+
+def game_menu(req):
+    return render(request=req, template_name="my_app/add_game_menu.html")

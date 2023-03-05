@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
    path("", views.home, name="home"),
+   path("menu", views.game_menu, name="menu"),
    path("psgl", views.serve_ps_games, name='psgl'),
    path("gl", views.serve_all_games, name='gl'),
    path("nitgl", views.serve_nit_games, name='nitgl'),
