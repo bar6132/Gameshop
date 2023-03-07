@@ -15,6 +15,29 @@ from django.conf import settings
 from itertools import chain
 
 
+def home(req):
+    if req.user.is_authenticated:
+        user = User.objects.get(username=req.user.username)
+        return render(request=req, template_name="my_app/home.html", context={'name': user})
+    else:
+        return render(request=req, template_name="my_app/home.html")
+
+
+def game_menu(req):
+    return render(request=req, template_name="my_app/add_game_menu.html")
+
+
+# def search(req):
+#     game = req.POST['q']
+#     findx = Xbox.objects.filter(game_name__contains=game)
+#     findn = Nintendo.objects.filter(game_name__contains=game)
+#     findpc = Pc.objects.filter(game_name__contains=game)
+#     findo = OldSchool.objects.filter(game_name__contains=game)
+#     find = Playstation.objects.filter(game_name__contains=game)
+#     return render(template_name='my_app/search.html', request=req,
+#                   context={'games': [find, findo, findpc, findn, findx]})
+
+
 def serve_all_games(req):
     msg = 'NO Games Have Been Found'
     findp = Playstation.objects.all()
@@ -25,14 +48,6 @@ def serve_all_games(req):
     find = list(chain(findx, findp, findn, findo, findpc))
     return render(request=req, template_name="my_app/full-game-list.html", context={'games': find,
                                                                                     'msg': msg})
-
-
-def home(req):
-    if req.user.is_authenticated:
-        user = User.objects.get(username=req.user.username)
-        return render(request=req, template_name="my_app/home.html", context={'name': user})
-    else:
-        return render(request=req, template_name="my_app/home.html")
 
 
 def serve_ps_games(req):
@@ -56,11 +71,11 @@ def serve_nit_games(req):
                                                                                    'msg': msg})
 
 
-def show_game_info(req, gid):
+def show_ps_game_info(req, gid):
     game = Playstation.objects.get(pk=gid)
     if req.method == "GET":
         form = PsForm(instance=game)
-        return render(request=req, template_name="my_app/show_game_info.html",
+        return render(request=req, template_name="my_app/show_ps_game_info.html",
                       context={'form': form, 'gid': gid})
 
     elif req.method == 'POST':
@@ -71,6 +86,37 @@ def show_game_info(req, gid):
         else:
             return redirect('login')
 
+
+def show_xbox_game_info(req, gid):
+    game = Xbox.objects.get(pk=gid)
+    if req.method == "GET":
+        form = XboxForm(instance=game)
+        return render(request=req, template_name="my_app/show_xbox_game_info.html",
+                      context={'form': form, 'gid': gid})
+
+    elif req.method == 'POST':
+        form = XboxForm(req.POST, req.FILES, instance=game)
+        if form.is_valid():
+            form.save()
+            return redirect("home")
+        else:
+            return redirect('login')
+
+
+def show_nit_game_info(req, gid):
+    game = Nintendo.objects.get(pk=gid)
+    if req.method == "GET":
+        form = NintendoForm(instance=game)
+        return render(request=req, template_name="my_app/show_nit_game_info.html",
+                      context={'form': form, 'gid': gid})
+
+    elif req.method == 'POST':
+        form = NintendoForm(req.POST, req.FILES, instance=game)
+        if form.is_valid():
+            form.save()
+            return redirect("home")
+        else:
+            return redirect('login')
 
 def logout_user(req):
     if req.user.is_authenticated:
@@ -208,5 +254,3 @@ def show_user_info(req, pid):
             return redirect('login')
 
 
-def game_menu(req):
-    return render(request=req, template_name="my_app/add_game_menu.html")

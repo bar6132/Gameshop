@@ -28,7 +28,7 @@
       </ul>
       <div class="card-body" style="text-align:center; ">
          {% if user == game.user %}
-        <a href="#" class="card-link">Card link</a>
+         <a href="{% url 'xbinfo' gid=game.id %}" class="card-link">Game Edit</a>
         {% endif %}
          <a  href="#" class="card-link">Contact info</a>
       </div>

@@ -37,9 +37,15 @@
       </ul>
       <div class="card-body" style="text-align: center;">
         {% if user == game.user %}
-        <a href="#" class="card-link">Card link</a>
+          {% if game.console_name %}
+         <a href="{% url 'xbinfo' gid=game.id %}" class="card-link">Game Edit</a>
+          {% elif game.console_number %}
+          <a href="{% url 'ginfo' gid=game.id %}" class="card-link">Game Edit</a>
+          {% elif game.pc_minimum_requirements %}
+          {% else %}
+          <a href="{% url 'ninfo' gid=game.id %}" class="card-link">Game Edit</a>
+          {% endif %}
         {% endif %}
-
          <a  href="#" class="card-link">Contact info</a>
       </div>
     </div> &nbsp;&nbsp;
