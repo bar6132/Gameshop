@@ -24,10 +24,13 @@
       <ul class="list-group list-group-flush" style="text-align:center; ">
         <li class="list-group-item">Console: {{ game.console_name }}</li>
         <li class="list-group-item">Price: {{game.price}} $</li>
+        <li class="list-group-item"> Uploaded by : {{game.user}} </li>
       </ul>
-      <div class="card-body">
-        <a href="{% url 'ginfo' gid=game.id %}" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
+      <div class="card-body" style="text-align:center; ">
+         {% if user == game.user %}
+        <a href="#" class="card-link">Card link</a>
+        {% endif %}
+         <a  href="#" class="card-link">Contact info</a>
       </div>
     </div> &nbsp;&nbsp;
   {% endfor %}

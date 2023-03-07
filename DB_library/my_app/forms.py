@@ -26,24 +26,28 @@ class OldSchoolForm(ModelForm):
     class Meta:
         model = OldSchool
         fields = "__all__"
+        exclude = ["user"]
 
 
 class PcForm(ModelForm):
     class Meta:
         model = Pc
         fields = "__all__"
+        exclude = ["user"]
 
 
 class PsForm(ModelForm):
     class Meta:
         model = Playstation
         fields = "__all__"
+        exclude = ["user"]
 
 
 class XboxForm(ModelForm):
     class Meta:
         model = Xbox
         fields = "__all__"
+        exclude = ["user"]
 
 
 class UserForm(UserCreationForm):

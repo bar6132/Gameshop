@@ -23,7 +23,6 @@
         <h5 class="card-title" style="text-align:center;" >{{game.game_name}}</h5>
       </div>
       <ul class="list-group list-group-flush" style="text-align:center; ">
-        <li class="list-group-item">Nintendo Switch</li>
         {% if game.console_name %}
         <li class="list-group-item">Console: {{ game.console_name }} </li>
         {% elif game.console_number %}
@@ -34,10 +33,14 @@
         <li class="list-group-item"> Nintendo </li>
         {% endif %}
         <li class="list-group-item">Price: {{game.price}} $</li>
+        <li class="list-group-item"> Uploaded by : {{game.user}} </li>
       </ul>
-      <div class="card-body">
+      <div class="card-body" style="text-align: center;">
+        {% if user == game.user %}
         <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
+        {% endif %}
+
+         <a  href="#" class="card-link">Contact info</a>
       </div>
     </div> &nbsp;&nbsp;
   {% endfor %}

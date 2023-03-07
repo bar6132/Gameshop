@@ -118,18 +118,19 @@ def del_user(req, pid):
 def add_game(req):
     if req.method == 'GET':
         name = req.user.username
-        return render(request=req, template_name="my_app/gameupload.html",
+        return render(request=req, template_name="my_app/add_ps_game.html",
                       context={"form": PsForm()})
     elif req.method == 'POST':
         form = PsForm(req.POST, req.FILES)
         user = req.user
         if form.is_valid():
-            form.user = user
+            obj = form.save(commit=False)
+            obj.user = req.user
             form.save()
             return render(request=req, template_name="my_app/home.html")
         else:
             messages.error(req, f' error uploading -> Game <- !')
-            return render(request=req, template_name="my_app/gameupload.html",
+            return render(request=req, template_name="my_app/add_ps_game.html",
                           context={"form": PsForm()})
 
 
@@ -141,6 +142,8 @@ def add_xbox_game(req):
     elif req.method == 'POST':
         form = XboxForm(req.POST, req.FILES)
         if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = req.user
             form.save()
             return render(request=req, template_name="my_app/home.html")
         else:

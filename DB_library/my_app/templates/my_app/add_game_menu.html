@@ -4,20 +4,20 @@
 {% block content %}
 <html lang="en">
     <link rel="stylesheet" href="static/zoom.css">
-
 <head>
     <meta charset="UTF-8">
     <title>Add Game</title>
 </head>
 <body style="background-color:black;">
+<div style="text-align: center;">
+    <a href="{% url 'gup' %}"><img  src="{% static 'ps.jpg' %}"  class="zoom" ></a>
 
-<a href="{% url 'gup' %}"><img  src="{% static 'ps.jpg' %}"  class="zoom" ></a>
+    <a href="{% url 'adx' %}"><img  src="{% static 'xbox.jpg' %}"  class="zoom"></a>
 
-<a href="{% url 'adx' %}"><img  src="{% static 'xbox.jpg' %}"  class="zoom"></a>
+    <a href="{% url 'anit' %}"><img  src="{% static 'nit.jpg' %}"  class="zoom"></a>
 
-<a href="{% url 'anit' %}"><img  src="{% static 'nit.jpg' %}"  class="zoom"></a>
-
-<a href="{% url 'gup' %}"><img  src="{% static 'PC_DVD.jpg' %}"  class="zoom"></a>
+    <a href="{% url 'gup' %}"><img  src="{% static 'PC_DVD.jpg' %}"  class="zoom"></a>
+</div>
 </body>
 {% endblock content %}
 </html>
