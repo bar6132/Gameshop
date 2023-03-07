@@ -22,8 +22,6 @@ class Person(models.Model):
                f"{self.id}\n" \
                f"{self.phone}" \
 
-
-
 class Playstation(models.Model):
     console_number = models.PositiveIntegerField(validators=[
         MaxValueValidator(5),

@@ -5,6 +5,7 @@ from django.contrib.admin.widgets import AdminDateWidget, AdminSplitDateTime, Ad
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from .models import Playstation, User, Person, Xbox, Pc, Nintendo, OldSchool
+from django.contrib.auth.decorators import login_required, permission_required
 
 
 class LoginForm(forms.Form):
@@ -12,19 +13,19 @@ class LoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
 
 
-class NintendoForm(forms.Form):
+class NintendoForm(ModelForm):
     class Meta:
         model = Nintendo
         fields = "__all__"
 
 
-class OldSchoolForm(forms.Form):
+class OldSchoolForm(ModelForm):
     class Meta:
         model = OldSchool
         fields = "__all__"
 
 
-class PcForm(forms.Form):
+class PcForm(ModelForm):
     class Meta:
         model = Pc
         fields = "__all__"
@@ -47,7 +48,6 @@ class UserForm(UserCreationForm):
 
 
 class PersonForm(ModelForm):
-
     class Meta:
         model = Person
         exclude = ['user']
@@ -61,3 +61,5 @@ class EPersonForm(ModelForm):
         model = Person
         exclude = ['user']
         fields = '__all__'
+
+

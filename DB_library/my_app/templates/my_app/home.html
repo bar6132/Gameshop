@@ -6,6 +6,7 @@ img{
 width : 50px;
 max-width: 100%;
     }
+
 .logo{
 width : 80px;
 max-width: 100%;
@@ -101,7 +102,7 @@ border-radius: 50%;
   <div style="background-color : grey; text-align:center;">
       <a href="{% url 'psgl' %}"><img src="{% static 'pslogo.jpg' %}" class="logo" alt="pslogo"></a>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <img src="{% static 'Xbox.jpg' %}" class="logo" alt="xboxlogo">
+     <a href="{% url 'xbgl' %}"><img src="{% static 'Xbox.jpg' %}" class="logo" alt="xboxlogo"  style="height :80px"></a>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
        <a href="{% url 'nitgl' %}"><img src="{% static 'Nintendo_switch_logo.jpg' %}" class="logo" alt="switchlogo"></a>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

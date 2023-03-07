@@ -5,13 +5,9 @@ from django.views import View
 from django.views.decorators.http import require_http_methods
 from django.views.generic import CreateView, ListView, UpdateView
 from django.contrib.auth.decorators import login_required, permission_required
-import datetime
-import time
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-
-from .forms import LoginForm, PsForm, UserForm, PersonForm, EPersonForm
 from .forms import LoginForm, PsForm, UserForm, PersonForm, EPersonForm, XboxForm, NintendoForm, OldSchoolForm, PcForm
 from .models import Person, Playstation, Nintendo, Xbox, Pc, OldSchool
 from django.contrib.auth.decorators import user_passes_test
@@ -31,7 +27,6 @@ def serve_all_games(req):
                                                                                     'msg': msg})
 
 
-
 def home(req):
     if req.user.is_authenticated:
         user = User.objects.get(username=req.user.username)
@@ -45,6 +40,13 @@ def serve_ps_games(req):
     find = Playstation.objects.all()
     return render(request=req, template_name="my_app/ps-Games-list.html", context={'games': find,
                                                                                    'msg': msg})
+
+
+def serve_xbox_games(req):
+    msg = 'NO Games Have Been Found'
+    find = Xbox.objects.all()
+    return render(request=req, template_name="my_app/xbox_game_list.html", context={'games': find,
+                                                                                    'msg': msg})
 
 
 def serve_nit_games(req):
@@ -115,11 +117,14 @@ def del_user(req, pid):
 @login_required
 def add_game(req):
     if req.method == 'GET':
+        name = req.user.username
         return render(request=req, template_name="my_app/gameupload.html",
                       context={"form": PsForm()})
     elif req.method == 'POST':
         form = PsForm(req.POST, req.FILES)
+        user = req.user
         if form.is_valid():
+            form.user = user
             form.save()
             return render(request=req, template_name="my_app/home.html")
         else:
@@ -184,3 +189,19 @@ def show_user_info(req, pid):
 
 def game_menu(req):
     return render(request=req, template_name="my_app/add_game_menu.html")
+
+
+@login_required
+def add_nit_game(req):
+    if req.method == 'GET':
+        return render(request=req, template_name="my_app/add_nit_game.html",
+                      context={"form": NintendoForm()})
+    elif req.method == 'POST':
+        form = NintendoForm(req.POST, req.FILES)
+        if form.is_valid():
+            form.save()
+            return render(request=req, template_name="my_app/home.html")
+        else:
+            messages.error(req, f' error uploading -> Game <- !')
+            return render(request=req, template_name="my_app/add_nit_game.html",
+                          context={"form": NintendoForm()})
