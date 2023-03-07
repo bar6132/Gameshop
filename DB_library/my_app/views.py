@@ -68,7 +68,8 @@ def serve_nit_games(req):
     msg = 'NO Games Have Been Found'
     find = Nintendo.objects.all()
     return render(request=req, template_name="my_app/nit-Game-list.html", context={'games': find,
-                                                                                   'msg': msg})
+                                                                                   'msg': msg,
+                                                                                })
 
 
 def show_ps_game_info(req, gid):
@@ -117,6 +118,7 @@ def show_nit_game_info(req, gid):
             return redirect("home")
         else:
             return redirect('login')
+
 
 def logout_user(req):
     if req.user.is_authenticated:
