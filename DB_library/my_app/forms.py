@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.forms import ModelForm
 from .models import Playstation, User, Person, Xbox, Pc, Nintendo, OldSchool
 from django.contrib.auth.decorators import login_required, permission_required
+from django.forms import TextInput
 
 
 class LoginForm(forms.Form):
@@ -14,9 +15,11 @@ class LoginForm(forms.Form):
 
 
 class NintendoForm(ModelForm):
+
     class Meta:
         model = Nintendo
         fields = "__all__"
+        exclude = ["user"]
 
 
 class OldSchoolForm(ModelForm):

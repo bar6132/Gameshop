@@ -43,6 +43,7 @@ class Nintendo(models.Model):
     game_name = models.CharField(null=False, max_length=50)
     price = models.PositiveIntegerField(null=False)
     game_img = models.ImageField(null=True, blank=True, upload_to="images/")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
         db_table = "Nintendo"

@@ -46,7 +46,7 @@ def serve_xbox_games(req):
     msg = 'NO Games Have Been Found'
     find = Xbox.objects.all()
     return render(request=req, template_name="my_app/xbox_game_list.html", context={'games': find,
-                                                                                    'msg': msg})
+                                                                                    'msg': msg, })
 
 
 def serve_nit_games(req):
@@ -149,6 +149,24 @@ def add_xbox_game(req):
                           context={"form": XboxForm()})
 
 
+@login_required
+def add_nit_game(req):
+    if req.method == 'GET':
+        return render(request=req, template_name="my_app/add_nit_game.html",
+                      context={"form": NintendoForm()})
+    elif req.method == 'POST':
+        form = NintendoForm(req.POST, req.FILES)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = req.user
+            form.save()
+            return render(request=req, template_name="my_app/home.html")
+        else:
+            messages.error(req, f' error uploading -> Game <- !')
+            return render(request=req, template_name="my_app/add_nit_game.html",
+                          context={"form": NintendoForm()})
+
+
 def create_user(req):
     if req.method == "GET":
         return render(request=req, template_name="my_app/signup.html",
@@ -189,19 +207,3 @@ def show_user_info(req, pid):
 
 def game_menu(req):
     return render(request=req, template_name="my_app/add_game_menu.html")
-
-
-@login_required
-def add_nit_game(req):
-    if req.method == 'GET':
-        return render(request=req, template_name="my_app/add_nit_game.html",
-                      context={"form": NintendoForm()})
-    elif req.method == 'POST':
-        form = NintendoForm(req.POST, req.FILES)
-        if form.is_valid():
-            form.save()
-            return render(request=req, template_name="my_app/home.html")
-        else:
-            messages.error(req, f' error uploading -> Game <- !')
-            return render(request=req, template_name="my_app/add_nit_game.html",
-                          context={"form": NintendoForm()})
