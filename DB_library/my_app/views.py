@@ -8,7 +8,8 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from .forms import LoginForm, PsForm, UserForm, PersonForm, EPersonForm, XboxForm, NintendoForm, OldSchoolForm, PcForm
+from .forms import LoginForm, PsForm, UserForm, PersonForm, EPersonForm, XboxForm, \
+    NintendoForm, OldSchoolForm, PcForm
 from .models import Person, Playstation, Nintendo, Xbox, Pc, OldSchool
 from django.contrib.auth.decorators import user_passes_test
 from django.conf import settings
@@ -69,7 +70,7 @@ def serve_nit_games(req):
     find = Nintendo.objects.all()
     return render(request=req, template_name="my_app/nit-Game-list.html", context={'games': find,
                                                                                    'msg': msg,
-                                                                                })
+                                                                                   })
 
 
 def show_ps_game_info(req, gid):
@@ -86,6 +87,12 @@ def show_ps_game_info(req, gid):
             return redirect("home")
         else:
             return redirect('login')
+
+
+def del_ps_game(req, gid):
+    game = Playstation.objects.get(pk=gid)
+    game.delete()
+    return redirect('home')
 
 
 def show_xbox_game_info(req, gid):
@@ -109,7 +116,8 @@ def show_nit_game_info(req, gid):
     if req.method == "GET":
         form = NintendoForm(instance=game)
         return render(request=req, template_name="my_app/show_nit_game_info.html",
-                      context={'form': form, 'gid': gid})
+                      context={'form': form, 'gid': gid,
+                               })
 
     elif req.method == 'POST':
         form = NintendoForm(req.POST, req.FILES, instance=game)
@@ -182,6 +190,7 @@ def add_game(req):
                           context={"form": PsForm()})
 
 
+
 @login_required
 def add_xbox_game(req):
     if req.method == 'GET':
@@ -209,7 +218,7 @@ def add_nit_game(req):
         form = NintendoForm(req.POST, req.FILES)
         if form.is_valid():
             obj = form.save(commit=False)
-            obj.user = req.user
+            obj.uploader = req.user.person
             form.save()
             return render(request=req, template_name="my_app/home.html")
         else:

@@ -10,6 +10,7 @@
 {% block content %}
 {% if games %}
 
+
   <div style=" display: flex;
   flex-wrap: wrap; max-width :85%; ">
   {% for game in games %}
@@ -25,18 +26,22 @@
       <ul class="list-group list-group-flush" style="text-align:center; ">
         <li class="list-group-item">PS: {{game.console_number}}</li>
         <li class="list-group-item">Price: {{game.price}} $</li>
-        <li class="list-group-item"> Uploaded by : {{game.user}} </li>
+        <li class="list-group-item"> Owner : {{game.uploader.user}} </li>
       </ul>
       <div class="card-body" style="text-align:center;">
-        {% if user == game.user %}
-        <a href="{% url 'ginfo' gid=game.id %}" class="card-link">Game Edit</a>
+         {% if user == game.uploader.user %}
+         <a href="{% url 'ginfo' gid=game.id %}" class="card-link">Game Edit</a>
+        {% elif user != game.uploader.user %}
+       <h6>Contact info</h6>
+         Phone: {{game.uploader.phone}}<br>
+         City: {{game.uploader.city}}<br>
         {% endif %}
-        <a  href="#" class="card-link">Contact info</a>
       </div>
     </div> &nbsp;&nbsp;
   {% endfor %}
   {% endif %}
   </div >
+
 
 </body>
 {% endblock content %}

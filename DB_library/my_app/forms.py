@@ -19,7 +19,7 @@ class NintendoForm(ModelForm):
     class Meta:
         model = Nintendo
         fields = "__all__"
-        exclude = ["user"]
+        exclude = ["uploader"]
 
 
 class OldSchoolForm(ModelForm):

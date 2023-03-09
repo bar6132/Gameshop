@@ -31,7 +31,7 @@ class Playstation(models.Model):
     game_name = models.CharField(null=False, max_length=50)
     price = models.PositiveIntegerField(null=False)
     game_img = models.ImageField(null=True, blank=True, upload_to="images/")
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    uploader = models.ForeignKey(Person, on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
         db_table = "Playstation"
@@ -44,7 +44,7 @@ class Nintendo(models.Model):
     game_name = models.CharField(null=False, max_length=50)
     price = models.PositiveIntegerField(null=False)
     game_img = models.ImageField(null=True, blank=True, upload_to="images/")
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    uploader = models.ForeignKey(Person, on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
         db_table = "Nintendo"
@@ -58,7 +58,7 @@ class Xbox(models.Model):
     game_name = models.CharField(null=False, max_length=50)
     price = models.PositiveIntegerField(null=False)
     game_img = models.ImageField(null=True, blank=True, upload_to="images/")
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    uploader = models.ForeignKey(Person, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f"{self.game_name}"
@@ -69,7 +69,7 @@ class Pc(models.Model):
     price = models.PositiveIntegerField(null=False)
     game_img = models.ImageField(null=True, blank=True, upload_to="images/")
     pc_minimum_requirements = models.CharField(null=True, blank=True, max_length=100)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    uploader = models.ForeignKey(Person, on_delete=models.CASCADE, null=True, blank=True)
 
 
 class OldSchool(models.Model):
@@ -78,4 +78,4 @@ class OldSchool(models.Model):
     game_name = models.CharField(null=False, max_length=50)
     price = models.PositiveIntegerField(null=False)
     game_img = models.ImageField(null=True, blank=True, upload_to="images/")
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    uploader = models.ForeignKey(Person, on_delete=models.CASCADE, null=True, blank=True)

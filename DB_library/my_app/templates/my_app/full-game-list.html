@@ -33,10 +33,10 @@
         <li class="list-group-item"> Nintendo </li>
         {% endif %}
         <li class="list-group-item">Price: {{game.price}} $</li>
-        <li class="list-group-item"> Uploaded by : {{game.user}} </li>
+        <li class="list-group-item"> Owner : {{game.uploader.user}} </li>
       </ul>
       <div class="card-body" style="text-align: center;">
-        {% if user == game.user %}
+        {% if user == game.uploader.user %}
           {% if game.console_name %}
          <a href="{% url 'xbinfo' gid=game.id %}" class="card-link">Game Edit</a>
           {% elif game.console_number %}
@@ -46,7 +46,12 @@
           <a href="{% url 'ninfo' gid=game.id %}" class="card-link">Game Edit</a>
           {% endif %}
         {% endif %}
-         <a  href="#" class="card-link">Contact info</a>
+          {% if user != game.uploader.user %}
+        <h6>Contact info</h6>
+         Phone: {{game.uploader.phone}}<br>
+         City: {{game.uploader.city}}<br>
+        {% endif %}
+
       </div>
     </div> &nbsp;&nbsp;
   {% endfor %}

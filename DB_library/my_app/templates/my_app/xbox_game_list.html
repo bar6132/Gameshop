@@ -24,13 +24,17 @@
       <ul class="list-group list-group-flush" style="text-align:center; ">
         <li class="list-group-item">Console: {{ game.console_name }}</li>
         <li class="list-group-item">Price: {{game.price}} $</li>
-        <li class="list-group-item"> Uploaded by : {{game.user}} </li>
+        <li class="list-group-item"> Owner : {{game.uploader.user}} </li>
       </ul>
       <div class="card-body" style="text-align:center; ">
-         {% if user == game.user %}
+         {% if user == game.uploader.user %}
          <a href="{% url 'xbinfo' gid=game.id %}" class="card-link">Game Edit</a>
+        {% elif user != game.uploader.user %}
+        Contact info<br>
+         Phone: {{game.uploader.phone}}<br>
+         City: {{game.uploader.city}}<br>
         {% endif %}
-         <a  href="#" class="card-link">Contact info</a>
+      </div>
       </div>
     </div> &nbsp;&nbsp;
   {% endfor %}

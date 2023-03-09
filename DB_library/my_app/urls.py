@@ -15,6 +15,7 @@ urlpatterns = [
    path('login', views.login_user, name="login"),
    path("ulist", views.user_list, name='ulist'),
    path("del/user<str:pid>", views.del_user, name='del/user'),
+   path("del/ps<str:gid>", views.del_ps_game, name='del/ps'),
    path('gup', views.add_game, name="gup"),
    path('adx', views.add_xbox_game, name="adx"),
    path('anit', views.add_nit_game, name="anit"),
